@@ -21,7 +21,7 @@ public class XMLSaxHandler extends DefaultHandler {
 	}
 
 	public ArrayList<XMLValues> generateArff(String filepath) {
-		
+
 		parseDocument(filepath);
 		return xmlValueObj;
 	}
@@ -55,11 +55,6 @@ public class XMLSaxHandler extends DefaultHandler {
 				xObj = new XMLValues();
 				xObj.setScore(Double.parseDouble(attrs.getValue("Score")));
 				xObj.setViewCount(Double.parseDouble(attrs.getValue("ViewCount")));
-				
-				// xObj.setAnswerCount(Double.parseDouble(attrs.getValue("AnswerCount")));
-				// xObj.setCommentCount(Double.parseDouble(attrs.getValue("CommentCount")));
-				// xObj.setFavoriteCount(Double.parseDouble(attrs.getValue("FavoriteCount")));
-
 				xObj.setTitle(attrs.getValue("Title"));
 				xObj.setBody(attrs.getValue("Body"));
 				xObj.setTags(attrs.getValue("Tags"));
@@ -71,23 +66,21 @@ public class XMLSaxHandler extends DefaultHandler {
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException {
 
-		if(qName.equalsIgnoreCase("row")) {
-			
-			//Go on appending content to arff file, 100 instances at a time to avoid out of memory error
-			if(count==100)
-			{
-				count=0;
+		if (qName.equalsIgnoreCase("row")) {
+
+			// Go on appending content to arff file, 100 instances at a time to
+			// avoid out of memory error
+			if (count == 100) {
+				count = 0;
 				ARFFGenerator createArff = new ARFFGenerator();
 				try {
 					createArff.generateARFF(xmlValueObj);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
-			else
-			{
+			} else {
 				xmlValueObj.add(xObj);
-				count = count+1;
+				count = count + 1;
 			}
 		}
 

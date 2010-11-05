@@ -27,9 +27,6 @@ public class ARFFGenerator {
     // - numeric
     atts.addElement(new Attribute("Score"));
     atts.addElement(new Attribute("ViewCount")); 
-    //atts.addElement(new Attribute("AnswerCount")); 
-    //atts.addElement(new Attribute("CommentCount")); 
-    //atts.addElement(new Attribute("FavoriteCount"));
     
     // - string
     atts.addElement(new Attribute("Title", (FastVector) null));
@@ -49,10 +46,6 @@ public class ARFFGenerator {
         // - numeric
         vals[0] = xmlValues.get(i).getScore(); //Score
         vals[1] = xmlValues.get(i).getViewCount(); //ViewCount
-        
-        //vals[2] = xmlValues.get(i).getAnswerCount(); //AnswerCount
-        //vals[3] = xmlValues.get(i).getCommentCount(); //CommentCount
-        //vals[4] = xmlValues.get(i).getFavoriteCount(); //FavoriteCount
         
         // - string
         vals[2] = data.attribute(2).addStringValue(xmlValues.get(i).getTitle()); //Title
