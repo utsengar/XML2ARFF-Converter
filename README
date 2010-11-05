@@ -1,7 +1,7 @@
 XML2ARFF converter for Weka. It uses: 1. Weka.jar, 2. SAX parser
 
 - This is specific to stackoverflow.com's datadump which is in XML format.
-- You will need to change the some files to make it work for your XML data dump.
+- You will need to change the some files to make it work for your XML data dump. (XMLValues.java)
   - Create your POJO for instances of the data dump
   - Update other files with the values you have in your XML file.
 
