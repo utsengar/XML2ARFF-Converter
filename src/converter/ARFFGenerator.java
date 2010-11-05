@@ -1,5 +1,7 @@
 package converter;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.ArrayList;
 
 import weka.core.Attribute;
@@ -63,6 +65,14 @@ public class ARFFGenerator {
         // add
         data.add(new Instance(1.0, vals));
     }
+    
+    // Create file 
+    FileWriter fstream = new FileWriter("Outoput.arff", true);
+    BufferedWriter out = new BufferedWriter(fstream);
+    out.write(data.toString());
+    
+    //Close the output stream
+    out.close();
     
 	return data;
   }

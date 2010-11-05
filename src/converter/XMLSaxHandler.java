@@ -14,14 +14,15 @@ import javax.xml.parsers.SAXParserFactory;
 public class XMLSaxHandler extends DefaultHandler {
 	private XMLValues xObj;
 	ArrayList<XMLValues> xmlValueObj;
+	int count = 0;
 
 	public XMLSaxHandler() {
 		xmlValueObj = new ArrayList<XMLValues>();
 	}
 
-	public ArrayList<XMLValues> getXMLObjArray(String filepath) {
-		parseDocument(filepath);
+	public ArrayList<XMLValues> generateArff(String filepath) {
 		
+		parseDocument(filepath);
 		return xmlValueObj;
 	}
 
@@ -71,7 +72,22 @@ public class XMLSaxHandler extends DefaultHandler {
 			throws SAXException {
 
 		if(qName.equalsIgnoreCase("row")) {
-			xmlValueObj.add(xObj);
+			//Go on appending content to arff file, 100 instances at a time to avoid out of memory error
+			if(count==100)
+			{
+				count=0;
+				ARFFGenerator createArff = new ARFFGenerator();
+				try {
+					createArff.generateARFF(xmlValueObj);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			else
+			{
+				xmlValueObj.add(xObj);
+				count = count+1;
+			}
 		}
 
 	}
