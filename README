@@ -5,4 +5,24 @@ XML2ARFF converter for Weka. It uses: 1. Weka.jar, 2. SAX parser
   - Create your POJO for instances of the data dump
   - Update other files with the values you have in your XML file.
 
+
+Sample inout file: (Presently I am only reading Score, ViewCount, Title, Body, Tags and Creation Date)
+ <row 
+	Id="3835644" 
+	PostTypeId="1" 
+	AcceptedAnswerId="xxxxxx" 
+	CreationDate="2010-09-30T23:58:10.803" 
+	Score="0" 
+	ViewCount="48" 
+	Body="body of the question goes here" 
+	OwnerUserId="xxxxxx" 
+	LastActivityDate="2010-10-01T00:22:57.203"
+	ClosedDate="2010-10-01T06:06:01.407" 
+	Title="title of the question goes hers" 
+	Tags="tags go here" 
+	AnswerCount="2" 
+	CommentCount="1" 
+	FavoriteCount="1" 
+/>
+
 TO-DO: Make it more generic.

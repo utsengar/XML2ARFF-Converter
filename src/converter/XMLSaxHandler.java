@@ -72,6 +72,7 @@ public class XMLSaxHandler extends DefaultHandler {
 			throws SAXException {
 
 		if(qName.equalsIgnoreCase("row")) {
+			
 			//Go on appending content to arff file, 100 instances at a time to avoid out of memory error
 			if(count==100)
 			{
