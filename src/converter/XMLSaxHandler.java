@@ -47,16 +47,13 @@ public class XMLSaxHandler extends DefaultHandler {
 		}
 	}
 
-	public void startElement(String uri, String localName, String qName,
-			Attributes attrs) throws SAXException {
+	public void startElement(String uri, String localName, String qName, Attributes attrs) throws SAXException {
 
 		if (qName.equals("row")) {
 			if (attrs.getValue("PostTypeId").equals("1")) {
 				xObj = new XMLValues();
 				xObj.setScore(Double.parseDouble(attrs.getValue("Score")));
 				xObj.setViewCount(Double.parseDouble(attrs.getValue("ViewCount")));
-				xObj.setTitle(attrs.getValue("Title"));
-				xObj.setBody(attrs.getValue("Body"));
 				xObj.setTags(attrs.getValue("Tags"));
 				xObj.setDate(attrs.getValue("CreationDate"));
 			}
@@ -65,24 +62,34 @@ public class XMLSaxHandler extends DefaultHandler {
 
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException {
-
+		
 		if (qName.equalsIgnoreCase("row")) {
-
-			// Go on appending content to arff file, 100 instances at a time to
-			// avoid out of memory error
-			if (count == 100) {
-				count = 0;
+			// This dirty ifelse branching is to avoid out of memory error
+			if (count == XMLtoARFFConverter.NUMBER_OF_INSTANCES) {
 				ARFFGenerator createArff = new ARFFGenerator();
 				try {
 					createArff.generateARFF(xmlValueObj);
+					System.exit(0);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			} else {
-				xmlValueObj.add(xObj);
-				count = count + 1;
+				if(xmlValueObj.size() == 0)
+				{
+					//First time insertion in the arraylist
+					xmlValueObj.add(xObj);
+					count = count + 1;
+				}
+				else
+				{
+					//Don't insert repeated objects because row contains questions and answer (damn!)
+					if(xmlValueObj.get(xmlValueObj.size()-1) != xObj)
+					{
+						xmlValueObj.add(xObj);
+						count = count + 1;
+					}
+				}
 			}
 		}
-
 	}
 }
