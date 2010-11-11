@@ -6,7 +6,7 @@ XML2ARFF converter for Weka. It uses: 1. Weka.jar, 2. SAX parser
   - Update other files with the values you have in your XML file.
 
 
-Sample inout file: (Presently I am only reading Score, ViewCount, Title, Body, Tags and Creation Date)
+Sample inout file: (Presently I am only reading Score, ViewCount, Tags and Creation Date)
  <row 
 	Id="3835644" 
 	PostTypeId="1" 
